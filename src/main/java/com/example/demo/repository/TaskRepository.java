@@ -1,18 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Task;
+import com.example.demo.model.enums.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-public interface TaskRepository {
-    List<Task> TASK_IN_MEMORY = new ArrayList<>(
-            Arrays.asList(
-                    new Task(1, "X", LocalDateTime.of(
-                            2023, 1, 1, 10, 10)),
-                    new Task(2, "Y", LocalDateTime.now())
-            )
-    );
+@Repository                             // JpaRepository<ModelClass, PK Type>
+public interface TaskRepository extends JpaRepository<Task, Integer> {
+    Optional<Task> findTaskByTaskName(String taskName);
+    List<Task> findAllByCategory(Category category);
+    List<Task> findAllByCategoryAndTaskDeadlineLessThan(Category category, LocalDateTime deadline);
 }
