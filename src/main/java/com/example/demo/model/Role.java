@@ -1,12 +1,10 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.RoleName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "roles")
@@ -16,5 +14,6 @@ public class Role {
     @Id
     @GeneratedValue
     private int roleId;
-    private String roleName;
+    @Enumerated(value = EnumType.STRING)
+    private RoleName roleName;
 }

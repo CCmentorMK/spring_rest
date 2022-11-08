@@ -1,22 +1,20 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Task;
-import com.example.demo.model.User;
-import com.example.demo.service.TaskService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.TaskServiceImpl;
+import com.example.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class TaskController {
-    private TaskService taskService;
-    private UserService userService;
+    private TaskServiceImpl taskService;
+    private UserServiceImpl userService;
     // DI
     @Autowired
-    public TaskController(TaskService taskService, UserService userService) {
+    public TaskController(TaskServiceImpl taskService, UserServiceImpl userService) {
         this.taskService = taskService;
         this.userService = userService;
     }
@@ -43,6 +41,7 @@ public class TaskController {
     public boolean deleteTask(@PathVariable("taskId") int taskId){
         return taskService.deleteTaskById(taskId);
     }
+
     @GetMapping("/tasks/{task_name}")
     public Task findTaskByName(@PathVariable("task_name") String taskName){
         return taskService.findTaskByName(taskName).orElse(new Task());

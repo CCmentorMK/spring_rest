@@ -1,24 +1,16 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Role;
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.example.demo.model.enums.RoleName;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-@Service
-public class UserService {
-    private UserRepository userRepository;
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-    public User addUser(String email, String password){
-        return userRepository.save(new User(email, password));
-    }
-    public Optional<User> findUserById(long userId){
-        return userRepository.findById(userId);
-    }
+public interface UserService {
+    User addUser(String email, String password);
+    Optional<User> findUserById(long userId);
+    Set<Role> getUserRoles(long userId);
+    void addUserRoleByRoleName(long userId, RoleName roleName);
 }
