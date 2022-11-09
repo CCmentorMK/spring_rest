@@ -51,4 +51,9 @@ public class TaskServiceImpl implements TaskService{
     public Optional<Task> findTaskByName(String taskName){
         return taskRepository.findTaskByTaskName(taskName);
     }
+
+    @Override
+    public List<Object[]> groupTasksByCategory() {
+        return null;
+    }
 }
