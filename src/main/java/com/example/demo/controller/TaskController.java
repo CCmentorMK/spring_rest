@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class TaskController {
@@ -45,6 +47,13 @@ public class TaskController {
     @GetMapping("/tasks/{task_name}")
     public Task findTaskByName(@PathVariable("task_name") String taskName){
         return taskService.findTaskByName(taskName).orElse(new Task());
+    }
+    @GetMapping("/tasks/aggregated")
+    public Map groupTasksByCategory(){
+
+        return taskService.groupTasksByCategory()       // List<Object[category, count]>
+                .stream()
+                .collect(Collectors.toMap(k -> k[0], v -> v[1]));
     }
 
 }

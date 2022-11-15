@@ -54,6 +54,6 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public List<Object[]> groupTasksByCategory() {
-        return null;
+        return taskRepository.groupTasksByCategory();
     }
 }
